@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="pt-br" id="html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        font-size: small;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    }
+
+    html {
+        margin: 0;
+        padding: 0;
+        background-color: #d7caca;
+
+    }
+
+    body {
+        font-family: "Roboto", sans-serif;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .topo {
+        height: 55px;
+        width: 100%;
+        background: #005e54;
+        color: aliceblue;
+        padding: 0 8px;
+        font-size: 24px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+    }
+
+    .topo .avatar img {
+        border-radius: 50%;
+        display: block;
+        width: 36px;
+        margin-left: 10px;
+        margin-top: 10px;
+        position: fixed;
+    }
+
+    .topo .nome {
+        font-size: 17px;
+        font-weight: 600;
+        text-overflow: ellipsis;
+        letter-spacing: 0.3px;
+        margin: 10px 0 0 60px;
+        white-space: nowrap;
+        width: auto;
+    }
+
+    .topo .status {
+        font-size: 10px;
+        text-overflow: ellipsis;
+        letter-spacing: 0.3px;
+        margin: 3px 0 0 60px;
+        white-space: nowrap;
+        width: auto;
+    }
+
+    .corpo {
+        background-color: #d7caca;
+        width: 100%;
+        margin-top: 50px;
+        padding-bottom: 100px;
+    }
+
+    .minhaMsg {
+        background: #e1ffc7;
+        border-radius: 5px 0px 5px 5px;
+        margin-left: 45%;
+        margin-right: 15px;
+        text-align: left;
+        width: 50%;
+        word-break: normal;
+        padding: 10px;
+        padding-bottom: 15px;
+        margin-bottom: 5px;
+    }
+
+    .msgBot {
+        background: #e1ffc7;
+        border-radius: 0px 5px 5px 5px;
+        margin-left: 15px;
+        text-align: left;
+        width: 50%;
+        word-break: normal;
+        padding: 10px;
+        padding-bottom: 15px;
+        margin-bottom: 5px;
+    }
+
+    .minhaMsg .hora {
+        background: transparent;
+        border-radius: 5px 0px 5px 5px;
+        float: right;
+        margin-right: 15px;
+        text-align: right;
+        width: 50%;
+        word-break: normal;
+        font-size: smaller;
+        margin-bottom: 10px;
+    }
+
+    .msgBot .hora {
+        background: transparent;
+        border-radius: 5px 0px 5px 5px;
+        float: right;
+        margin-right: 15px;
+        text-align: right;
+        width: 50%;
+        word-break: normal;
+        font-size: smaller;
+        margin-bottom: 10px;
+    }
+
+    .msgBot button {
+        background: rgb(40, 150, 40);
+        border-radius: 5px 5px 5px 5px;
+        border: none;
+        width: 50%;
+        font-size: smaller;
+        margin-top: 3px;
+        color: aliceblue;
+        padding: 4px;
+    }
+
+
+
+
+    .campoMsg {
+        height: 50px;
+        width: 100%;
+        background: #d7caca;
+        color: aliceblue;
+        padding: 10px;
+        font-size: 24px;
+        position: fixed;
+        z-index: 1;
+        bottom: 0;
+        display: flex;
+    }
+
+    td input {
+        width: 95%;
+        background: #fff;
+        color: black;
+        z-index: 1;
+        bottom: 0;
+        margin: 0;
+        padding: 3px;
+        border: none;
+        border-radius: 3px;
+        height: 75%;
+        margin-left: 5px;
+    }
+
+    td button {
+        background: #005e54;
+        color: white;
+        margin: 0;
+        z-index: 1;
+        bottom: 0;
+        border-radius: 2px;
+        margin-left: 5px;
+        font-size: larger;
+        padding: 0;
+        user-select: none;
+        width: 95%;
+        height: 95%;
+    }
+
+    table {
+        height: 50px;
+        width: 95%;
+        font-size: 24px;
+        position: fixed;
+        z-index: 1;
+        bottom: 0;
+    }
+
+    td,
+    tr {
+        width: 100%;
+        min-width: 50px;
+    }
+
+    .leitura {
+        color: cadetblue;
+        animation: visu 3s linear;
+        font-weight: bold;
+    }
+
+    @keyframes visu {
+        0% {
+            color: gray
+        }
+
+        90% {
+            color: gray
+        }
+
+        100% {
+            color: cadetblue
+        }
+    }
+
+
+    .chat_input {
+
+        width: 100%;
+        height: 10%;
+        display: flex;
+        display: flex;
+        align-items: center;
+        background: #005e54;
+        bottom: 0px;
+        position: fixed;
+        margin-top: 0px;
+    }
+
+    .chat_input .in {
+        padding: .5rem;
+        outline: 0;
+        border: none;
+        float: left;
+        margin-left: 10px;
+        width: 90%;
+        border-radius: 6px;
+    }
+
+    .chat_input button {
+        padding: .5rem;
+        outline: 0;
+        border: none;
+        background: #3a875d;
+        color: white;
+        border-radius: 9%;
+        font-size: 1.1rem;
+        margin-left: 2%;
+        margin-right: 5px;
+        float: right;
+        font-family: Arial;
+    }
+</style>
+
+<body id="body">
+    <div class="topo" id="topo">
+        <div class="avatar">
+            <img id="fotoperfil" alt="">
+
+        </div>
+        <div class="nome" id="nome">Bot CdS EAD</div>
+        <div class="status" id="status">Breso</div>
+    </div>
+
+
+
+    <div class="corpo" id="corpo">&nbsp;
+
+
+
+    </div>
+
+
+
+    <div class="chat_input">
+        <input type="text" id="mensagem" class="in" placeholder="Digite algo...">
+        <button id="enviar" class="send">Enviar</button>
+    </div>
+
+    <!--
+<table border="0">
+        <tr>
+            <td colspan="5"><input type="text" id="mensagem" placeholder="Digite aqui..."></td>
+            <td><button id="enviar">&#x27a1</button></td>
+        </tr>
+    </table>
+-->
+
+
+
+
+
+
+</body>
+<script>
+
+
+    //?nome=cu&foto=breso.png&meunome=edu&tempo=2000&tema=0
+
+
+    //Responder('Olá Olá segue o link abaixo para fazer o download'+BotaoMsg('Baixar','www.google.com'));
+    //Responder('Obrigado');
+    //Responder('<img src="Hank.png" alt="" width="100%">');
+    //Responder('<iframe src="http://www.google.com" frameborder="0" width="100%"></iframe>');
+    //Responder(BotaoMsgDownload('x','http://localhost/index.php'));
+
+
+
+    //obter Dados do GET
+    const qs = window.location.search;
+    const get = new URLSearchParams(qs);
+
+    //----------------------------------
+
+    var tempoResposta = 1000;
+    var nomeBot = 'Rockstar Games Hasher Bot';
+    var fotoperfil = 'hasher.jpg';
+    var tema = '0';
+    var nomeUsuario = '';
+
+
+    if (get.get('tempo')) {
+        tempoResposta = parseInt(get.get('tempo'));
+    }
+    if (localStorage.getItem('tempo')) {
+        tempoResposta = parseInt(localStorage.getItem('tempo'));
+    }
+    //------------------------------------------------
+    if (get.get('nome')) {
+        nomeBot = get.get('nome');
+    }
+    else if (localStorage.getItem('nome')) {
+        nomeBot = localStorage.getItem('nome');
+    }
+
+    //------------------------------------------------
+    if (get.get('tema')) {
+        tema = get.get('tema');
+    }
+    else if (localStorage.getItem('tema')) {
+        tema = localStorage.getItem('tema');
+    }
+
+
+    //------------------------------------------------
+    if (get.get('meunome')) {
+        nomeUsuario = get.get('meunome');
+    }
+    else if (localStorage.getItem('meunome')) {
+        nomeUsuario = localStorage.getItem('meunome');
+    }
+
+
+    //------------------------------------------------
+    if (get.get('foto')) {
+        fotoperfil = get.get('foto');
+    }
+    else if (localStorage.getItem('foto')) {
+        fotoperfil = localStorage.getItem('foto');
+    }
+
+
+
+    //----------------------------------
+    AplicarTema();
+
+    document.getElementById('status').innerHTML = 'Visto por ultimo hoje as ' + HoraAntes();
+    document.getElementById('nome').innerHTML = nomeBot;
+    document.getElementById('fotoperfil').src = fotoperfil;
+
+
+
+    //emojis
+    var sorriso = '&#128578;';
+    var coracao = '&#128151;';
+    var piscando = '&#128521;';
+    var ok = '&#128076;';
+    var lua = '&#127773;';
+    var sol = '&#9728;';
+    var aviao = '&#9992;';
+    var coracaoquebrado = '&#128148;';
+    var fogo = '&#128293;';
+    var confiante = '&#128526;';
+    var joinha = '&#128077;';
+    var rindo = '&#128514;';
+    var triste = '&#128531;';
+    var rock = '&#129304;';
+
+
+    var jaAvisouSobreEnviarVariosHashs = false;
+
+
+
+
+    function Cerebro(pergunta) {
+        var boleta = true;
+
+
+
+        //-------------------------------------------------------------
+        if (pergunta.includes('/tema') && boleta) {
+            boleta = false;
+            const n = pergunta.match(/\d+/g);
+            const i = n.map(Number);
+            tema = i[0];
+            AplicarTema();
+
+            localStorage.setItem('tema', tema)
+
+            Responder('Pronto, o tema foi alterado para ' + tema + ' ');
+        }
+        if (pergunta.includes('/tempo') && boleta) {
+            boleta = false;
+            const n = pergunta.match(/\d+/g);
+            const i = n.map(Number);
+            tempoResposta = i[0];
+
+            localStorage.setItem('tempo', tempoResposta)
+
+            Responder('Pronto, o tempo de resposta foi alterado para ' + tempoResposta + ' milisegundos');
+        }
+        if (pergunta.includes('/nome') && boleta) {
+            boleta = false;
+            nomeBot = pergunta.replace('/nome ', '');;
+            document.getElementById('nome').innerHTML = nomeBot;
+
+            localStorage.setItem('nome', nomeBot)
+
+            Responder('Otimo, agora me chamo ' + nomeBot + '. Gostei!');
+        }
+
+        if (pergunta.includes('/meunome') && boleta) {
+            boleta = false;
+            nomeUsuario = pergunta.replace('/meunome', '');
+
+            localStorage.setItem('meunome', nomeUsuario)
+
+            Responder('Prazer ' + nomeUsuario + '. Gostei do seu nome!');
+        }
+
+
+        if (pergunta.includes('/foto') && boleta) {
+            boleta = false;
+            fotoperfil = pergunta.replace('/foto ', '');;
+            document.getElementById('fotoperfil').src = fotoperfil;
+
+            localStorage.setItem('foto', fotoperfil)
+
+            Responder('Gostei da foto nova hehe');
+        }
+
+
+        if (pergunta.includes('/limpar') && boleta) {
+            boleta = false;
+            localStorage.clear();
+            Responder('Otimo,vamos reiniciar tudo!');
+            setTimeout(() => {
+                window.location.reload();
+            }, 4000);
+        }
+
+        if (pergunta.includes('/dev') && boleta) {
+            boleta = false;
+            Responder('Voce ativou a opção <b>DEV</b> e pode usar os seguintes comandos para alterar algumas coisas: <br><br>' +
+                '<b>/nome</b>: Muda o meu nome <br>Ex: <i>/nome Pica-Pau</i><br><br>' +
+                '<b>/tempo</b>: Muda o tempo de resposta em milisegundos<br>Ex: <i>/tempo 1000</i><br><br>' +
+                '<b>/tema</b>: Muda o tema de 0 a 3<br>Ex: <i>/tema 2</i><br><br>' +
+                '<b>/meunome</b>: Muda o seu nome<br>Ex: <i>/meunome Patolino</i><br><br>' +
+                '<b>/foto</b>: Muda minha foto de perfil via link<br>Ex: <i>/foto breso.png</i><br><br>' +
+                '<b>/limpar</b>: Limpa todas suas alterações<br>Ex: <i>/limpar</i><br><br>' +
+                '<b>OBS</b>: Todas modificações ficam salvas apenas para voce.<br>Voce pode personalizar tambem, enviando via <b>GET</b><br>' +
+                '<br>Ex: <b>?nome=PicaPau&foto=breso.png&<br>meunome=Leoncio&tempo=1000<br>&tema=0</b><br><br>');
+        }
+
+
+        //-------------------------------------------------------------
+        var palavra = [
+            'thnks',
+            'valeu',
+            'perfeit',
+            'tchau',
+            'obrigad'
+        ];
+        if (boleta) {
+            palavra.forEach(valor => {
+
+                if (Contem(pergunta, valor)) {
+                    boleta = false;
+                    Responder(FalouObrigado());
+                }
+            });
+        }
+
+        //-------------------------------------------------------------
+        palavra = [
+            'ola',
+            'oi',
+            'bom dia',
+            'boa tarde',
+            'boa noite',
+            'hey',
+            'hello',
+        ];
+        if (boleta) {
+            palavra.forEach(valor => {
+
+                if (Contem(pergunta, valor)) {
+                    boleta = false;
+                    Responder(Ola());
+                }
+            });
+        }
+
+        //------------------------------------
+        if (boleta) {
+            if (Contem(pergunta, ' ')) {
+                boleta = false;
+                Responder(RespostaHashEspaço(pergunta));
+            }
+            else if (Contem(pergunta, ',')) {
+                boleta = false;
+                Responder(RespostaHashVirgula(pergunta));
+            }
+
+        }
+
+        //-----------------------------------
+        if (boleta) {
+            if (pergunta === '' || pergunta === ' ' || pergunta === '  ') {
+                boleta = false;
+                Responder('Ops  ' + nomeUsuario + ', digite alguma coisa né hahaha assim não consigo te ajudar!!' + EmojiAleatorio());
+            }
+            else {
+                Responder(RespostaHashSimples(pergunta));
+            }
+        }
+
+    }
+    //----------------------------------------------
+    function RespostaHashVirgula(str) {
+        var array = str.split(',');
+        var resposta = 'Certo ' + nomeUsuario + ', vamos ver um por um:<br>';
+        array.forEach(element => {
+            resposta += '<b>' + element + '</b>: <i>' + joaat(element) + '</i><br>';
+        });
+
+        resposta+= '<br><br>Aqui, em bloco de codigo, caso seja necessario:<br><br>';
+        resposta+= '<textarea style="width:93%;height:100px;resize:none;background-color:#333;color:white">';
+            array.forEach(element => {
+            resposta += 'DWORD ' + element + ' = ' + joaat(element) + ';\n';
+        });
+        resposta+= '</textarea><br>';
+
+        resposta += '<br>Espero ter ajudado ' + EmojiAleatorio();
+        return resposta;
+    }
+
+
+    function RespostaHashEspaço(str) {
+        var array = str.split(' ');
+        var resposta = 'Certo ' + nomeUsuario + ', vamos ver um por um:<br>';
+        array.forEach(element => {
+            resposta += '<b>' + element + '</b>: <i>' + joaat(element) + '</i><br>';
+        });
+
+        resposta+= '<br><br>Aqui, em bloco de codigo, caso seja necessario:<br><br>';
+        resposta+= '<textarea style="width:93%;height:100px;resize:none;background-color:#333;color:white">';
+            array.forEach(element => {
+            resposta += 'DWORD ' + element + ' = ' + joaat(element) + ';\n';
+        });
+        resposta+= '</textarea><br>';
+
+        resposta += '<br>Espero ter ajudado ' + EmojiAleatorio();
+        return resposta;
+    }
+
+    //----------------------------------------------
+
+    function RespostaHashSimples(str) {
+        var hash1 = joaat(str);
+        var hash2 = joaat2(str);
+        var hash3 = joaat3(str);
+
+        var a;
+
+        if (!jaAvisouSobreEnviarVariosHashs) {
+            jaAvisouSobreEnviarVariosHashs = true;
+            a = [
+                'Hash de <b>' + str + '</b> é <b>' + hash1 + '</b> ' + EmojiAleatorio() + '.Lembrando que eu consigo processar varios hashs, então, pode enviar varios de uma só vez!<br> Basta separar por espaços ou virgulas ',
+            ];
+
+            if (nomeUsuario !== '') {
+                a = [
+                    'Certo ' + nomeUsuario + ', o hash de <b>' + str + '</b> é <b>' + hash1 + '</b> ' + EmojiAleatorio() + '.Lembrando que eu consigo processar varios hashs, então, pode enviar varios de uma só vez!<br> Basta separar por espaços ou virgulas',
+                    'Entendi ' + nomeUsuario + ', o hash de <b>' + str + '</b> é <b>' + hash1 + '</b> ' + EmojiAleatorio() + '.Lembrando que eu consigo processar varios hashs, então, pode enviar varios de uma só vez!<br> Basta separar por espaços ou virgulas',
+                    'Certo ' + nomeUsuario + ', o hash de <b>' + str + '</b> é <b>' + hash1 + '</b> ' + EmojiAleatorio() + '.Lembrando que eu consigo processar varios hashs, então, pode enviar varios de uma só vez!<br> Basta separar por espaços ou virgulas',
+                ];
+            }
+
+        }
+        else {
+            var a = [
+                'Hash de <b>' + str + '</b> é <b>' + hash1 + '</b> ' + EmojiAleatorio(),
+            ];
+
+            if (nomeUsuario !== '') {
+                a = [
+                    'Certo ' + nomeUsuario + ', o hash de <b>' + str + '</b> é <b>' + hash1 + '</b> ' + EmojiAleatorio()   ,
+                    'Entendi ' + nomeUsuario + ', o hash de <b>' + str + '</b> é <b>' + hash1 + '</b> ' + EmojiAleatorio() ,
+                    'Certo ' + nomeUsuario + ', o hash de <b>' + str + '</b> é <b>' + hash1 + '</b> ' + EmojiAleatorio()   ,
+                ];
+            }
+        }
+
+
+
+
+        const ia = Math.floor(Math.random() * a.length);
+        return a[ia];
+    }
+
+
+
+
+    // '+nomeUsuario+'
+    function Ola() {
+        const a = [
+            'Ei, ola ' + nomeUsuario + ', manda a palavra que voçe precisa do hash ' + EmojiAleatorio(),
+            'Ola ' + nomeUsuario + ', qual hash voçe precisa?' + EmojiAleatorio(),
+            'Hey ' + nomeUsuario + ', oque manda pra hoje?' + EmojiAleatorio(),
+            'Oi ' + nomeUsuario + ',oque voce precisa?' + EmojiAleatorio(),
+        ];
+        const ia = Math.floor(Math.random() * a.length);
+        return a[ia];
+    }
+
+
+
+
+    function ContemNumeros(frase) {
+        return /\d/.test(frase);
+    }
+
+    function Contem(pergunta, palavra) {
+        pergunta = pergunta.toLowerCase();
+        palavra = palavra.toLowerCase();
+        return pergunta.includes(palavra);
+    }
+
+
+    document.getElementById('enviar').addEventListener('click', () => {
+
+
+        Falar(document.getElementById('mensagem').value);
+        var pergunta = document.getElementById('mensagem').value;
+        document.getElementById('mensagem').value = '';
+
+
+        var l1 = setInterval(() => {
+            clearInterval(l1);
+            document.getElementById('status').innerHTML = 'Online';
+
+            var l2 = setInterval(() => {
+                clearInterval(l2);
+
+                document.getElementById('status').innerHTML = 'Digitando...';
+
+                var l3 = setInterval(() => {
+                    clearInterval(l3);
+
+                    document.getElementById('status').innerHTML = 'Online';
+                    //aqui exibe a msg
+                    Cerebro(pergunta);
+
+                }, (tempoResposta * 3));
+
+
+            }, (tempoResposta * 2));
+
+        }, tempoResposta);
+    });
+
+
+    function Falar(pergunta) {
+        var conteudoAntigo = document.getElementById('corpo').innerHTML;
+        var conteudoComPergunta = conteudoAntigo + '<div class="minhaMsg">' + pergunta + '<br><span class="hora">' + HoraAtual() + '</span></div>';
+        document.getElementById('corpo').innerHTML = conteudoComPergunta;
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function Responder(resposta) {
+        var conteudoAntigo = document.getElementById('corpo').innerHTML;
+        var conteudoComPergunta = conteudoAntigo + '<div class="msgBot">' + resposta + '<br><span class="hora">' + HoraAtual() + '</span></div>';
+        document.getElementById('corpo').innerHTML = conteudoComPergunta;
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+
+
+    function HoraAtual() {
+        var d = new Date();
+        var h = d.getHours();
+        var t = d.getMinutes();
+        10 > h ? h = '0' + h : h = h;
+        10 > t ? t = '0' + t : t = t;
+        return h + ':' + t;
+    }
+
+    function HoraAntes() {
+        var d = new Date();
+        var h = d.getHours();
+        var t = d.getMinutes();
+        if (t > 5)
+            t = t - 3;
+        else { t = 56; h = h - 1 }
+        10 > h ? h = '0' + h : h = h;
+        10 > t ? t = '0' + t : t = t;
+        return h + ':' + t;
+    }
+
+    function BotaoMsg(palavra, link) {
+        return '<center><a href="' + link + '"><button>' + palavra + '</button></a></center>';
+    }
+    function BotaoMsgDownload(palavra, link) {
+        return '<center><a href="' + link + '" download><button>' + palavra + '</button></a></center>';
+    }
+
+    function AplicarTema() {
+        if (tema == 1) {
+            document.getElementById('topo').style.backgroundColor = '#333';
+            document.getElementById('corpo').style.backgroundColor = '#666';
+            document.getElementById('html').style.backgroundColor = '#666';
+            document.getElementById('body').style.backgroundColor = '#666';
+            document.getElementById('mensagem').style.backgroundColor = '#cfcfce';
+            document.getElementById('enviar').style.backgroundColor = '#333';
+        }
+        if (tema == 2) {
+            document.getElementById('topo').style.backgroundColor = '#30333b';
+            document.getElementById('corpo').style.backgroundColor = '#2e4359';
+            document.getElementById('html').style.backgroundColor = '#2e4359';
+            document.getElementById('body').style.backgroundColor = '#2e4359';
+            document.getElementById('mensagem').style.backgroundColor = '#cfcfce';
+            document.getElementById('enviar').style.backgroundColor = '#333';
+        }
+        if (tema == 3) {
+            document.getElementById('topo').style.backgroundColor = '#43578d';
+            document.getElementById('corpo').style.backgroundColor = '#000';
+            document.getElementById('html').style.backgroundColor = '#000';
+            document.getElementById('body').style.backgroundColor = '#000';
+            document.getElementById('mensagem').style.backgroundColor = '#304563';
+            document.getElementById('enviar').style.backgroundColor = '#43578d';
+            document.getElementById('mensagem').style.color = '#fff';
+        }
+    }
+
+
+
+    // '+nomeUsuario+'
+    function FalouObrigado() {
+        const a = [
+
+            'De nada ' + nomeUsuario + '! Estou aqui para ajudar.' + EmojiAleatorio(),
+            'De nada ' + nomeUsuario + '! Se precisar de mais hashs, estou aqui para ajudar! ' + EmojiAleatorio(),
+            //outras frases
+        ];
+        const ia = Math.floor(Math.random() * a.length);
+        return a[ia];
+    }
+
+    function NaoEntendeu() {
+        console.log('nao entendeu');
+        const a = [
+
+            "Tô meio perdido" + nomeUsuario + ", não peguei direito o que você quer. Pode reformular, por favor?" + triste,
+            //outras frases
+        ];
+        const ia = Math.floor(Math.random() * a.length);
+        return a[ia];
+    }
+
+    function EmojiAleatorio() {
+        const a = [
+            '&#129303;',
+            '&#129309;',
+            '&#129312;',
+            '&#129322;',
+            '&#129325;',
+            '&#129392;',
+            '&#129396;',
+            '&#129488;',
+            '&#129497;',
+        ];
+        const ia = Math.floor(Math.random() * a.length);
+        return a[ia];
+    }
+
+
+    function joaat(s) {
+        s = s.toLowerCase()
+        let h = 0;
+        for (let i = 0; i < s.length; i++) {
+            h += s.charCodeAt(i);
+            h += (h << 10);
+            h ^= (h >> 6);
+        }
+        h += (h << 3);
+        h ^= (h >> 11);
+        h += (h << 15);
+        h = h >>> 0
+        return '0x' + h.toString(16).toUpperCase();
+    }
+
+    function joaat2(s) {
+        s = s.toLowerCase()
+        let h = 0;
+        for (let i = 0; i < s.length; i++) {
+            h += s.charCodeAt(i);
+            h += (h << 10);
+            h ^= (h >> 6);
+        }
+        h += (h << 3);
+        h ^= (h >> 11);
+        h += (h << 15);
+        //h = h >>> 0
+        return h;
+    }
+    function joaat3(s) {
+        s = s.toLowerCase()
+        let h = 0;
+        for (let i = 0; i < s.length; i++) {
+            h += s.charCodeAt(i);
+            h += (h << 10);
+            h ^= (h >> 6);
+        }
+        h += (h << 3);
+        h ^= (h >> 11);
+        h += (h << 15);
+        h = h >>> 0
+        return h;
+    }
+</script>
+
+</html>
